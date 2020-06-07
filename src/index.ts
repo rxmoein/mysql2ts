@@ -12,13 +12,14 @@ program.on('--help', () => {
   );
 });
 
-program.version('1.0.0');
-program.description('A handy tool to generate typescript models from mysql schema');
-program.requiredOption('-h, --host <host>', 'database host address')
-program.requiredOption('-n, --dbname <dbname>', 'database name')
-program.requiredOption('-p, --dbpass <dbpass>', 'database password')
-program.requiredOption('-r, --dbport <dbport>', 'database port')
-program.requiredOption('-o, --output <output>', 'output directory')
+program
+  .version('1.0.0')
+  .description('A handy tool to generate typescript models directly from mysql schema')
+  .requiredOption('-h, --host <host>', 'database host address [required]')
+  .requiredOption('-n, --dbname <dbname>', 'database name [required]')
+  .requiredOption('-p, --dbpass <dbpass>', 'database password [required]')
+  .requiredOption('-r, --dbport <dbport>', 'database port [required]')
+  .requiredOption('-o, --output <output>', 'output directory [required]');
 
 if (process.argv.length == 2) {
   console.log(
