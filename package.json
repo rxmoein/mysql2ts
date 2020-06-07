@@ -1,0 +1,47 @@
+{
+  "name": "mysql2ts",
+  "version": "1.0.0",
+  "description": "A handy tool to generate typescript models from mysql schema",
+  "main": "./dist/index.js",
+  "bin": {
+    "mysql2ts": "./dist/index.js"
+  },
+  "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "create": "npm run build && npm run test",
+    "build": "tsc -p .",
+    "test": "sudo npm i -g && mysql2ts -d ss",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rxmoein/mysql2ts.git"
+  },
+  "keywords": [
+    "mysql",
+    "typescript",
+    "model",
+    "generator",
+    "schema"
+  ],
+  "author": "Moein Hosseini",
+  "license": "CC-BY-1.0",
+  "bugs": {
+    "url": "https://github.com/rxmoein/mysql2ts/issues"
+  },
+  "homepage": "https://github.com/rxmoein/mysql2ts#readme",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "commander": "^5.1.0",
+    "figlet": "^1.4.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/clear": "^0.1.0",
+    "@types/figlet": "^1.2.0",
+    "@types/node": "^14.0.11",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
+  }
+}
