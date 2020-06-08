@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { validateConfig } from './tools/validators';
 import { program } from 'commander';
 import figlet = require('figlet');
 import chalk = require('chalk');
@@ -33,3 +34,10 @@ if (process.argv.length == 2) {
 }
 
 program.parse(process.argv);
+
+validateConfig({
+  DatabaseHost: program.host,
+  DatabaseName: program.dbname,
+  DatabasePassword: program.dbpass,
+  DatabasePort: program.dbport,
+});
