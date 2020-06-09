@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 
-import { validateConfig } from './tools/validators';
+import { GeneratorService } from './services/generator-service';
+import DIContainer from './core/di-container';
 import { program } from 'commander';
 import figlet = require('figlet');
 import chalk = require('chalk');
-import { generate } from './generator/generator';
-import { GeneratorService } from './services/generator-service';
-import { ConfigService } from './services/config-service';
 
 program.on('--help', () => {
   console.log(
@@ -47,6 +45,8 @@ const conf = {
   DatabaseUsername: program.dbuser,
 };
 
-validateConfig(conf);
-generate(conf);
-new GeneratorService(new ConfigService(conf));
+const generator: GeneratorService = DIContainer.resolve<GeneratorService>(GeneratorService);
+
+generator.validatorService.validateConfig(conf);
+generator.configService.setConfig(conf);
+generator.generate();

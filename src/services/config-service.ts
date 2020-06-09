@@ -1,11 +1,16 @@
-import { Service } from '../core/service.decorator';
-import { Configuration } from "../models/config";
+import { Configuration } from '../models/config';
+import { injectable } from 'inversify';
+import 'reflect-metadata';
 
-@Service()
+@injectable()
 export class ConfigService {
-    config: Configuration;
+    private config: Configuration = {} as any;
 
-    constructor(config: Configuration) {
+    setConfig(config: Configuration) {
         this.config = config;
+    }
+
+    getConfig() {
+        return this.config;
     }
 }
