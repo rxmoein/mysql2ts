@@ -1,6 +1,7 @@
 export interface Configuration {
     DatabaseHost: string;
-    DatabaseName: string;
+    DatabaseUsername: string;
     DatabasePassword: string;
+    DatabaseName: string;
     DatabasePort: string;
 }
