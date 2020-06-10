@@ -5,18 +5,22 @@ import { Validator } from './validator-service';
 import { injectable, inject } from 'inversify';
 import { MysqlService } from './mysql-service';
 import chalk = require('chalk');
+import { ToolsService } from './tools-service';
 
 @injectable()
 export class GeneratorService {
     configService: ConfigService;
     validatorService: Validator;
     mysqlService: MysqlService;
+    toolsService: ToolsService;
 
     constructor(
         @inject(ConfigService) configService: ConfigService,
         @inject(Validator) validatorService: Validator,
         @inject(MysqlService) mysqlService: MysqlService,
+        @inject(ToolsService) toolsService: ToolsService,
     ) {
+        this.toolsService = toolsService;
         this.mysqlService = mysqlService;
         this.configService = configService;
         this.validatorService = validatorService;
@@ -25,40 +29,9 @@ export class GeneratorService {
     async generate() {
         const config = this.configService.getConfig();
 
-        try {
-            console.log(chalk.blue('Connecting to database...'));
-            await this.mysqlService.initialize();
-            console.log(chalk.blue('Connected!'));
-        } catch (error) {
-            console.log('Could not connect to database:', error);
-            process.exit(1);
-        }
-
-        try {
-            await this.mysqlService.executeQuery('USE ' + config.DatabaseName);
-        } catch (error) {
-            console.log('error: ', error);
-            process.exit(1);
-        }
-
-        let tablesResult: any[];
-        try {
-            console.log(chalk.blue('Getting tables...'));
-            tablesResult = await this.mysqlService.executeQuery('SHOW TABLES') as any;
-        } catch (error) {
-            console.log('error: ', error);
-            process.exit(1);
-        }
-
-        for (const table of tablesResult) {
-            console.log('table: ', table);
-        }
-
-        // try {
-        //     await executeQuery('DESCRIBE ' + config.DatabaseName, connection);
-        // } catch (error) {
-        //     console.log('error: ', error);
-
-        // }
+        await this.toolsService.initializeMysql();
+        await this.toolsService.useDatabase(config.DatabaseName);
+        const tables = await this.toolsService.getTables()
+        console.log('tables: ', tables);
     }
 }

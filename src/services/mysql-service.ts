@@ -26,7 +26,7 @@ export class MysqlService {
             this.connection.connect((err) => {
                 if (err) {
                     return reject(err);
-                };
+                }
                 return resolve();
             });
         });
