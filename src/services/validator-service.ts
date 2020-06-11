@@ -10,6 +10,7 @@ export class Validator {
             this.validateDatabaseName(config.DatabaseName);
             this.validatePort(config.DatabasePort);
             this.validateFolderPath(config.OutputDirectory);
+            this.validateMode(config.Mode);
         } catch (error) {
             console.error(error);
             process.exit(1);
@@ -40,6 +41,12 @@ export class Validator {
     validateFolderPath(inputText: string) {
         if (!isValid(inputText)) {
             throw 'validation error: you have entered an invalid output directory';
+        }
+    }
+
+    validateMode(mode: string) {
+        if (mode != 'basic' && mode != 'advanced') {
+            throw 'validation error: you have entered an invalid mode. Use "basic" or "advanced"';
         }
     }
 }

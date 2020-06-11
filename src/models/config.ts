@@ -5,4 +5,5 @@ export interface Configuration {
     DatabaseName: string;
     DatabasePort: string;
     OutputDirectory: string;
+    Mode: 'basic' | 'advanced'
 }

@@ -4,9 +4,10 @@ import { Validator } from './validator-service';
 import { injectable, inject } from 'inversify';
 import { MysqlService } from './mysql-service';
 import { ToolsService } from './tools-service';
+import { toolsString } from '../models/values';
 import { Table } from '../models/table';
-import chalk = require('chalk');
 import { isAbsolute } from 'path'
+import chalk = require('chalk');
 
 @injectable()
 export class GeneratorService {
@@ -51,8 +52,13 @@ export class GeneratorService {
             }
 
             for (const table of tables) {
-                writeFileSync(`${outputDirectory}/${table.name}.model.ts`, table.getClassDefinitionString());
+                writeFileSync(`${outputDirectory}/${table.name}.model.ts`, table.getClassDefinitionString(config));
             }
+
+            if (config.Mode === 'advanced') {
+                writeFileSync(`${outputDirectory}/needed-utils.ts`, toolsString);
+            }
+
         } catch (error) {
             console.log('error: ', error.message);
             process.exit(1);

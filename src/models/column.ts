@@ -1,3 +1,5 @@
+import { Configuration } from './config';
+
 export class Column {
     name: string;
     type: string;
@@ -13,7 +15,7 @@ export class Column {
         this.nullable = nullable;
     }
 
-    getFieldDefinition(indent = 1) {
+    getFieldDefinition(config: Configuration, indent = 1) {
         return ' '.repeat(indent * 4) + `public ${this.name}: ${this.type};`;
     }
 }
