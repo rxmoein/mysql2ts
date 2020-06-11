@@ -43,6 +43,7 @@ const conf = {
   DatabasePassword: program.dbpass,
   DatabasePort: program.dbport,
   DatabaseUsername: program.dbuser,
+  OutputDirectory: program.output,
 };
 
 const generator: GeneratorService = DIContainer.resolve<GeneratorService>(GeneratorService);

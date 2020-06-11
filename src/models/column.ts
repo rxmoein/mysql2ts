@@ -12,4 +12,8 @@ export class Column {
         this.type = type;
         this.nullable = nullable;
     }
+
+    getFieldDefinition(indent = 1) {
+        return ' '.repeat(indent * 4) + `public ${this.name}: ${this.type};`;
+    }
 }

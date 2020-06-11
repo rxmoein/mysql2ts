@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "create": "npm run build && npm run test",
+    "create": "rm -rf ./output && npm run build && npm run test",
     "build": "tsc -p .",
     "test": "sudo npm i -g && mysql2ts",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
@@ -34,14 +34,16 @@
     "chalk": "^4.0.0",
     "commander": "^5.1.0",
     "figlet": "^1.4.0",
+    "inversify": "^5.0.1",
+    "is-valid-path": "^0.1.1",
     "mysql": "^2.18.1",
     "path": "^0.12.7",
-    "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/clear": "^0.1.0",
     "@types/figlet": "^1.2.0",
+    "@types/is-valid-path": "^0.1.0",
     "@types/mysql": "^2.15.13",
     "@types/node": "^14.0.11",
     "codelyzer": "^5.2.2",

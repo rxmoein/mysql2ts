@@ -1,11 +1,10 @@
-import { createConnection, Connection } from 'mysql';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { ConfigService } from './config-service';
-import { Configuration } from '../models/config';
 import { Validator } from './validator-service';
 import { injectable, inject } from 'inversify';
 import { MysqlService } from './mysql-service';
-import chalk = require('chalk');
 import { ToolsService } from './tools-service';
+import { Table } from '../models/table';
 
 @injectable()
 export class GeneratorService {
@@ -15,10 +14,10 @@ export class GeneratorService {
     toolsService: ToolsService;
 
     constructor(
-        @inject(ConfigService) configService: ConfigService,
         @inject(Validator) validatorService: Validator,
         @inject(MysqlService) mysqlService: MysqlService,
         @inject(ToolsService) toolsService: ToolsService,
+        @inject(ConfigService) configService: ConfigService,
     ) {
         this.toolsService = toolsService;
         this.mysqlService = mysqlService;
@@ -31,7 +30,22 @@ export class GeneratorService {
 
         await this.toolsService.initializeMysql();
         await this.toolsService.useDatabase(config.DatabaseName);
-        const tables = await this.toolsService.getTables()
-        console.log('tables: ', tables);
+        const tables = await this.toolsService.getTables();
+        await this.exportTables(tables);
+    }
+
+    async exportTables(tables: Table[]) {
+        const config = this.configService.getConfig();
+
+        const outputDirectory = process.cwd() + '/' + config.OutputDirectory;
+        if (!existsSync(outputDirectory)) {
+            mkdirSync(outputDirectory);
+        }
+
+        for (const table of tables) {
+            writeFileSync(`${outputDirectory}/${table.name}.model.ts`, table.getClassDefinitionString());
+        }
+
+        process.exit(0);
     }
 }

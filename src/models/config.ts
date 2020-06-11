@@ -4,4 +4,5 @@ export interface Configuration {
     DatabasePassword: string;
     DatabaseName: string;
     DatabasePort: string;
+    OutputDirectory: string;
 }

@@ -1,4 +1,5 @@
 import { Configuration } from '../models/config';
+import isValid = require('is-valid-path');
 import { injectable } from 'inversify';
 
 @injectable()
@@ -8,6 +9,7 @@ export class Validator {
             this.validateHostname(config.DatabaseHost)
             this.validateDatabaseName(config.DatabaseName);
             this.validatePort(config.DatabasePort);
+            this.validateFolderPath(config.OutputDirectory);
         } catch (error) {
             console.error(error);
             process.exit(1);
@@ -32,6 +34,12 @@ export class Validator {
         const portFormat = /^\d+$/;
         if (!inputText.match(portFormat)) {
             throw 'validation error: you have entered an invalid database port';
+        }
+    }
+
+    validateFolderPath(inputText: string) {
+        if (!isValid(inputText)) {
+            throw 'validation error: you have entered an invalid output directory';
         }
     }
 }
