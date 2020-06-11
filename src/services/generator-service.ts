@@ -6,6 +6,7 @@ import { MysqlService } from './mysql-service';
 import { ToolsService } from './tools-service';
 import { Table } from '../models/table';
 import chalk = require('chalk');
+import { isAbsolute } from 'path'
 
 @injectable()
 export class GeneratorService {
@@ -41,17 +42,20 @@ export class GeneratorService {
     }
 
     async exportTables(tables: Table[]) {
+        try {
+            const config = this.configService.getConfig();
 
+            const outputDirectory = isAbsolute(config.OutputDirectory) ? config.OutputDirectory : process.cwd() + '/' + config.OutputDirectory;
+            if (!existsSync(outputDirectory)) {
+                mkdirSync(outputDirectory);
+            }
 
-        const config = this.configService.getConfig();
-
-        const outputDirectory = process.cwd() + '/' + config.OutputDirectory;
-        if (!existsSync(outputDirectory)) {
-            mkdirSync(outputDirectory);
-        }
-
-        for (const table of tables) {
-            writeFileSync(`${outputDirectory}/${table.name}.model.ts`, table.getClassDefinitionString());
+            for (const table of tables) {
+                writeFileSync(`${outputDirectory}/${table.name}.model.ts`, table.getClassDefinitionString());
+            }
+        } catch (error) {
+            console.log('error: ', error.message);
+            process.exit(1);
         }
     }
 }
