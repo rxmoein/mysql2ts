@@ -24,7 +24,8 @@ program
   .requiredOption('-p, --dbpass <dbpass>', 'database password [required]')
   .requiredOption('-r, --dbport <dbport>', 'database port [required]')
   .requiredOption('-o, --output <output>', 'output directory [required]')
-  .requiredOption('-m, --mode <mode>', 'output mode [required], options: basic | advanced');
+  .requiredOption('-m, --mode <mode>', 'output mode [required], options: basic | advanced')
+  .option('-c, --namingConvention <string>', 'naming convention for class fields, options: camelCase | pascalCase | snakeCase');
 
 if (process.argv.length === 2) {
   console.log(
@@ -47,6 +48,7 @@ const conf: Configuration = {
   DatabaseUsername: program.dbuser,
   OutputDirectory: program.output,
   Mode: program.mode,
+  NamingConvention: program.namingConvention,
 };
 
 const generator: GeneratorService = DIContainer.resolve<GeneratorService>(GeneratorService);

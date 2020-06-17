@@ -1,4 +1,5 @@
 import { Configuration } from './config';
+import { formatName } from '../core/utils';
 
 export class Column {
     name: string;
@@ -16,6 +17,6 @@ export class Column {
     }
 
     getFieldDefinition(config: Configuration, indent = 1) {
-        return ' '.repeat(indent * 4) + `public ${this.name}: ${this.type};`;
+        return ' '.repeat(indent * 4) + `public ${formatName(config, this.name)}: ${this.type};`;
     }
 }

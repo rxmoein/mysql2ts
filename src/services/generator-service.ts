@@ -8,6 +8,7 @@ import { toolsString } from '../models/values';
 import { Table } from '../models/table';
 import { isAbsolute } from 'path'
 import chalk = require('chalk');
+import { toCamelCase } from '../core/utils';
 
 @injectable()
 export class GeneratorService {
@@ -52,7 +53,7 @@ export class GeneratorService {
             }
 
             for (const table of tables) {
-                writeFileSync(`${outputDirectory}/${table.name}.model.ts`, table.getClassDefinitionString(config));
+                writeFileSync(`${outputDirectory}/${toCamelCase(table.name)}.model.ts`, table.getClassDefinitionString(config));
             }
 
             if (config.Mode === 'advanced') {

@@ -5,5 +5,6 @@ export interface Configuration {
     DatabaseName: string;
     DatabasePort: string;
     OutputDirectory: string;
-    Mode: 'basic' | 'advanced'
+    Mode: 'basic' | 'advanced';
+    NamingConvention: 'camelCase' | 'pascalCase' | 'snakeCase';
 }

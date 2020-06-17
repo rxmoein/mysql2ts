@@ -126,3 +126,19 @@ export const initialCreateValidationString = `        if (obj === null || obj ==
         } else if (Array.isArray(obj)) {
             throwIsArray(field, obj, false);
         }`;
+
+export const constructorComments = `    /**
+     * The default constructor of AddressType class
+     * @param obj prepared object
+     */`;
+
+export const createMethodComments = `    /**
+     * Validates and creates sub models if they exists
+     * @param obj a javascript object
+     * @param field needed for errorHelper
+     */`;
+
+export const toOriginalMethodComment = `    /**
+     * Revert the object to original json object
+     * @param json Should return the json or not
+     */`;
