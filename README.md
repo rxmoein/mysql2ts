@@ -6,3 +6,23 @@ Install this tool globally using npm:
 ```
 sudo npm install mysql2ts -g
 ```
+
+## Example Usage
+To generate all typescript models from a mysql database, simply run this command:
+```
+mysql2ts -h 127.0.0.1 -u root -n Databsename -p 'FCKPzG9HKL5qxveR' -r 3306 -o output -m advanced -c camelCase
+```
+
+## Options
+
+|  Name  | Usage |
+|---|---|
+| Program Version  | `--version` Or `-V`  |
+| Database Host Address  | `--host` Or `-h`  |
+| Database Name | `--dbname` Or `-n` |
+| Database User | `--dbuser` Or `-u` |
+| Database Pass | `--dbpass` Or `-p` |
+| Database Port | `--dbport` Or `-r` |
+| Output Directory | `--output` Or `-o` |
+| Mode | `--mode` Or `m` |
+| Naming Convention | `--namingConvention` Or `-c` |
