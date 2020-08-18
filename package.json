@@ -1,6 +1,6 @@
 {
   "name": "mysql2ts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A handy tool to generate typescript models from mysql schema",
   "main": "./index.js",
   "bin": {
