@@ -6,21 +6,6 @@
     "deprecation": {
       "severity": "warn"
     },
-    "component-class-suffix": true,
-    "contextual-lifecycle": true,
-    "directive-class-suffix": true,
-    "directive-selector": [
-      true,
-      "attribute",
-      "pos",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "pos",
-      "kebab-case"
-    ],
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -73,7 +58,6 @@
       "single"
     ],
     "trailing-comma": false,
-    "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
     "no-inputs-metadata-property": true,
